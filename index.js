@@ -176,7 +176,7 @@ bot.hears(/(call)/, function (ctx) {
         console.log(date.getTimezoneOffset())
 
         ctx.reply("Вам перезвонят!");
-        database.pushData(DIR+'backCalls/', {
+        database.pushData('backCalls/', {
             url: `https://vk.com/id${ctx.user_id}`,
             time: date.getTime(),
             phone: (ctx.body.split("call ")[1] || "-")
