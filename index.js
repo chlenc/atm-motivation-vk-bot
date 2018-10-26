@@ -1,7 +1,7 @@
 const PORT = process.env.PORT || 5000;
 const TOKEN = process.env.TOKEN || '1c895e91714abb108a4482c8c93241aeda0b7d14a6346d57a4e1a2c7d4601641c46a924ed6bb62f15fef1';
 const CONFIRMATION = process.env.CONFIRMATION || '52b0f97b';
-
+const DIR = "motivation"
 
 // https://nameless-badlands-65161.herokuapp.com/
 
@@ -25,7 +25,7 @@ const bot = new Botact({
 
 
 bot.hears(/(start|Start|Старт|старт|Поехали!|поехали|Поехали|поехали!|Начинаем|Го|Go|go|го|Он сказал поехали и махнул рукой)/, function (ctx) {
-    database.updateData(`users/${ctx.user_id}`, {state: 'video1_2'});
+    database.updateData(`users/${DIR}${ctx.user_id}`, {state: 'video1_2'});
     frases.video1_1(ctx.user_id, function (link) {
         ctx.reply(link)
     });
@@ -61,17 +61,17 @@ bot.command('7am', ctx => {
         if (!error && data.state !== undefined) {
             // var flag = false;
             if (data.state === 'video1_2') {
-                database.updateData(`users/${ctx.user_id}`, {state: 'video1_3'});
+                database.updateData(`users/${DIR}${ctx.user_id}`, {state: 'video1_3'});
                 frases.video1_2(ctx.user_id, function (link) {
                     ctx.reply(link)
                 });
             } else if (data.state === 'video1_3') {
-                database.updateData(`users/${ctx.user_id}`, {state: 'video5_pay'});
+                database.updateData(`users/${DIR}${ctx.user_id}`, {state: 'video5_pay'});
                 frases.video1_3(ctx.user_id, function (link) {
                     ctx.reply(link)
                 });
             } else if (data.state === 'video5_pay') {
-                database.updateData(`users/${ctx.user_id}`, {state: 'video4_1'});
+                database.updateData(`users/${DIR}${ctx.user_id}`, {state: 'video4_1'});
                 frases.video5_pay(ctx.user_id, function (link) {
                     ctx.reply(link)
                 });
@@ -79,7 +79,7 @@ bot.command('7am', ctx => {
                 setTimeout(function () {
                     database.getData(`users/${ctx.user_id}/state`, function (state, error) {
                         if (!error && state === 'video4_1') {
-                            database.updateData(`users/${ctx.user_id}`, {state: 'video4_2'});
+                            database.updateData(`users/${DIR}${ctx.user_id}`, {state: 'video4_2'});
                             frases.video4_1(ctx.user_id, function (link) {
                                 ctx.reply(link)
                                 setTimeout(function () {
@@ -90,34 +90,34 @@ bot.command('7am', ctx => {
                     })
                 }, 30000)//172800000)
             } else if (data.state === 'video4_2') {
-                database.updateData(`users/${ctx.user_id}`, {state: 'video4_3'});
+                database.updateData(`users/${DIR}${ctx.user_id}`, {state: 'video4_3'});
                 frases.video4_2(ctx.user_id, function (link) {
                     ctx.reply(link)
                 });
             } else if (data.state === 'video4_3') {
-                database.updateData(`users/${ctx.user_id}`, {state: 'video5_1_pay'});
+                database.updateData(`users/${DIR}${ctx.user_id}`, {state: 'video5_1_pay'});
                 frases.video4_3(ctx.user_id, function (link) {
                     ctx.reply(link)
                 });
             } else if (data.state === 'video5_1_pay') {
-                database.updateData(`users/${ctx.user_id}`, {state: 'watch1'});
+                database.updateData(`users/${DIR}${ctx.user_id}`, {state: 'watch1'});
                 frases.video5_1_pay(ctx.user_id, function (link) {
                     ctx.reply(link)
                 });
             } else if (data.state === 'video3_2') {
-                database.updateData(`users/${ctx.user_id}`, {state: 'video6_1_pay'});
+                database.updateData(`users/${DIR}${ctx.user_id}`, {state: 'video6_1_pay'});
                 frases.video3_2(ctx.user_id, function (link) {
                     ctx.reply(link)
                 });
             } else if (data.state === 'video6_1_pay') {
-                database.updateData(`users/${ctx.user_id}`, {state: 'video2_1'});
+                database.updateData(`users/${DIR}${ctx.user_id}`, {state: 'video2_1'});
                 frases.video6_1_pay(ctx.user_id, function (link) {
                     ctx.reply(link)
                 });
                 setTimeout(function () {
                     database.getData(`users/${ctx.user_id}/state`, function (state, error) {
                         if (!error && state === 'video2_1') {
-                            database.updateData(`users/${ctx.user_id}`, {state: 'video6_2_pay'});
+                            database.updateData(`users/${DIR}${ctx.user_id}`, {state: 'video6_2_pay'});
                             frases.video2_1(ctx.user_id, function (link) {
                                 ctx.reply(link)
                             });
@@ -128,7 +128,7 @@ bot.command('7am', ctx => {
                             setTimeout(function () {
                                 database.getData(`users/${ctx.user_id}/state`, function (state, error) {
                                     if (!error && state === 'video6_2_pay') {
-                                        database.updateData(`users/${ctx.user_id}`, {state: 'watch2'});
+                                        database.updateData(`users/${DIR}${ctx.user_id}`, {state: 'watch2'});
                                         frases.video6_2_pay(ctx.user_id, function (link) {
                                             ctx.reply(link)
                                         });
@@ -181,7 +181,7 @@ bot.hears(/(call)/, function (ctx) {
             time: date.getTime(),
             phone: (ctx.body.split("call ")[1] || "-")
         })
-    }else {
+    } else {
         ctx.reply("Попробуйте еще раз :c");
 
     }
@@ -190,12 +190,12 @@ bot.hears(/(call)/, function (ctx) {
 
 bot.command('Stop', function (ctx) {
     ctx.sendMessage(ctx.user_id, 'Бот был остановлен');
-    database.updateData(`users/${ctx.user_id}`, {state: 'none'});
+    database.updateData(`users/${DIR}${ctx.user_id}`, {state: 'none'});
 })
 
 bot.command('stop', function (ctx) {
     ctx.sendMessage(ctx.user_id, 'Бот был остановлен');
-    database.updateData(`users/${ctx.user_id}`, {state: 'none'});
+    database.updateData(`users/${DIR}${ctx.user_id}`, {state: 'none'});
 })
 
 //===============================================
@@ -206,11 +206,11 @@ bot.command('onwatch1', function (ctx) {
     frases.video6_pay(ctx.user_id, function (link) {
         ctx.reply(link)
     });
-    database.updateData(`users/${ctx.user_id}`, {state: 'video3_1'});
+    database.updateData(`users/${DIR}${ctx.user_id}`, {state: 'video3_1'});
     setTimeout(function () {
         database.getData(`users/${ctx.user_id}/state`, function (state, error) {
             if (!error && state === 'video3_1') {
-                database.updateData(`users/${ctx.user_id}`, {state: 'video3_2'});
+                database.updateData(`users/${DIR}${ctx.user_id}`, {state: 'video3_2'});
                 frases.video3_1(ctx.user_id, function (link) {
                     ctx.reply(link)
                 });
@@ -252,11 +252,11 @@ app.post("/", function (req, res) {
                     frases.video6_pay(ctx.user_id, function (link) {
                         ctx.reply(link)
                     });
-                    database.updateData(`users/${ctx.user_id}`, {state: 'video3_1'});
+                    database.updateData(`users/${DIR}${ctx.user_id}`, {state: 'video3_1'});
                     setTimeout(function () {
                         database.getData(`users/${ctx.user_id}/state`, function (state, error) {
                             if (!error && state === 'video3_1') {
-                                database.updateData(`users/${ctx.user_id}`, {state: 'video3_2'});
+                                database.updateData(`users/${DIR}${ctx.user_id}`, {state: 'video3_2'});
                                 frases.video3_1(ctx.user_id, function (link) {
                                     ctx.reply(link)
                                 });
