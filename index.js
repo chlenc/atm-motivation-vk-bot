@@ -24,7 +24,7 @@ const bot = new Botact({
 //=====================INIT==================================
 
 
-bot.hears(/(start|Start|Старт|старт|Поехали!|поехали|Поехали|поехали!|Начинаем|Го|Go|go|го|Он сказал поехали и махнул рукой)/, function (ctx) {
+bot.hears(/(Начать|start|Start|Старт|старт|Поехали!|поехали|Поехали|поехали!|Начинаем|Го|Go|go|го|Он сказал поехали и махнул рукой)/, function (ctx) {
     database.updateData(`${DIR}/users/${ctx.user_id}`, {state: 'video1_2'});
     frases.video1_1(ctx.user_id, function (link) {
         ctx.reply(link)
