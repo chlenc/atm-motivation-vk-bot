@@ -57,7 +57,7 @@ bot.command('test', function (ctx) {
 
 bot.command('7am', ctx => {
     //console.log(ctx)
-   database.getData(DIR+`users/${ctx.user_id}`, function (data, error) {
+   database.getData(DIR+"/"+`users/${ctx.user_id}`, function (data, error) {
         if (!error && data.state !== undefined) {
             // var flag = false;
             if (data.state === 'video1_2') {
@@ -77,7 +77,7 @@ bot.command('7am', ctx => {
                 });
                 // ctx.reply('start 30sec timer');
                 setTimeout(function () {
-                   database.getData(DIR+`users/${ctx.user_id}/state`, function (state, error) {
+                   database.getData(DIR+"/"+`users/${ctx.user_id}/state`, function (state, error) {
                         if (!error && state === 'video4_1') {
                             database.updateData(`${DIR}/users/${ctx.user_id}`, {state: 'video4_2'});
                             frases.video4_1(ctx.user_id, function (link) {
@@ -115,7 +115,7 @@ bot.command('7am', ctx => {
                     ctx.reply(link)
                 });
                 setTimeout(function () {
-                   database.getData(DIR+`users/${ctx.user_id}/state`, function (state, error) {
+                   database.getData(DIR+"/"+`users/${ctx.user_id}/state`, function (state, error) {
                         if (!error && state === 'video2_1') {
                             database.updateData(`${DIR}/users/${ctx.user_id}`, {state: 'video6_2_pay'});
                             frases.video2_1(ctx.user_id, function (link) {
@@ -126,7 +126,7 @@ bot.command('7am', ctx => {
                             }, 5000)//900000);
 
                             setTimeout(function () {
-                               database.getData(DIR+`users/${ctx.user_id}/state`, function (state, error) {
+                               database.getData(DIR+"/"+`users/${ctx.user_id}/state`, function (state, error) {
                                     if (!error && state === 'video6_2_pay') {
                                         database.updateData(`${DIR}/users/${ctx.user_id}`, {state: 'watch2'});
                                         frases.video6_2_pay(ctx.user_id, function (link) {
@@ -208,7 +208,7 @@ bot.command('onwatch1', function (ctx) {
     });
     database.updateData(`${DIR}/users/${ctx.user_id}`, {state: 'video3_1'});
     setTimeout(function () {
-       database.getData(DIR+`users/${ctx.user_id}/state`, function (state, error) {
+       database.getData(DIR+"/"+`users/${ctx.user_id}/state`, function (state, error) {
             if (!error && state === 'video3_1') {
                 database.updateData(`${DIR}/users/${ctx.user_id}`, {state: 'video3_2'});
                 frases.video3_1(ctx.user_id, function (link) {
@@ -254,7 +254,7 @@ app.post("/", function (req, res) {
                     });
                     database.updateData(`${DIR}/users/${ctx.user_id}`, {state: 'video3_1'});
                     setTimeout(function () {
-                       database.getData(DIR+`users/${ctx.user_id}/state`, function (state, error) {
+                       database.getData(DIR+"/"+`users/${ctx.user_id}/state`, function (state, error) {
                             if (!error && state === 'video3_1') {
                                 database.updateData(`${DIR}/users/${ctx.user_id}`, {state: 'video3_2'});
                                 frases.video3_1(ctx.user_id, function (link) {
